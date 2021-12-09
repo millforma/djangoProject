@@ -1,0 +1,87 @@
+    {% extends "base.html" %}
+
+{% load static %}
+    {% block extracss %}
+    <style>        .edit-profile{
+    font-size: 4vh;
+    text-align: center;
+    color: aqua;}
+    p {
+        color: cyan;
+    }</style>
+
+        <script defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyARFjcD0lIjlgTpJ2RkNTVDA4QOq-qjDd8&callback=initAutocomplete" ></script>
+
+    {% endblock extracss %}
+
+{% block content %}
+          <div class="container-fluid">
+            <div class="edit-profile">
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="card" >
+                    <div class="card-header">
+                      <h4 class="card-title mb-0">My Profile</h4>
+                      <div class="card-options"><a class="card-options-collapse" href="#" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                    <form enctype="multipart/form-data" class="card theme-form" id="form-container" method="POST" style="padding: 50px">
+
+
+                        {% csrf_token %}
+
+                        <div class="form-group" >
+                        {{ profile_form.as_p }}
+                            {{ address_form.as_p }}
+                        </div>
+
+                        <input style="width: 50%;" type="submit" name="btninfo" class="btn btn-air-success btn-success-gradien btn-lg " value="Update Your Informations">
+                    </form>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+
+        <!-- footer start-->
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6 footer-copyright">
+                <p class="mb-0">Copyright © 2021 1001 Inventions. All rights reserved.</p>
+              </div>
+
+            </div>
+          </div>
+        </footer>
+
+
+{% endblock %}
+        </div>
+
+{% block script %}
+
+    <script>
+    let autocomplete;
+    function initAutocomplete(){
+        autocomplete = new google.maps.places.Autocomplete((
+            document.getElementById('id_details')),
+            {
+                types: ['geocode', 'establishment'],
+                componentRestrictions: {'country': ['FR']},
+                fields: ['place_id','geometry','name']
+            }
+        );
+
+    }
+
+    </script>
+
+
+
+
+{% endblock %}
